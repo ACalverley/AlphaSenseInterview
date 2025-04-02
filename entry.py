@@ -42,22 +42,15 @@ def main():
     # Question 1
     headers = csv_handler.get_headers('MNZIRS0108.csv')
     csv_handler.open_new_reader('MNZIRS0108.csv')
-
-
-    
-    print(file_list_csv)
-
-    headers = csv_handler.get_headers(file_list[0].replace('.zip', '.csv'))
-    print(headers)
-
-    csv_handler.open_new_reader(file_list[0].replace('.zip', '.csv'))
-
     for row in csv_handler.file_reader:
-        print(row)
+        if row['id'] == "MO_BS_INV":
+            value = float(row['scale']) * float(row['2014-10-01'])
+            print(f"\n\nQuestion 1: {value}")
 
-    # csv_data: List[CsvDataModel] = []
-    # for row in csv_handler.file_reader:
-    #     csv_data.append(CsvDataModel.to_model(row))
+    csv_handler.close()
+
+
+    # Question 2
 
 
 if __name__ == '__main__':
