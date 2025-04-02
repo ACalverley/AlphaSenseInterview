@@ -1,5 +1,6 @@
 
 import os
+from datetime import datetime, timedelta
 from argparse import ArgumentParser
 from services.s3_service import S3Service
 from utils.file_utils import CsvFileHandler
@@ -60,6 +61,23 @@ def main():
             
             value = sum(float(value) * float(scale) for value in row.values())/ len(row)
             print(f"\n\nQuestion 2: {value}")
+
+    csv_handler.close()
+    
+
+    # Question 3
+    csv_handler.open_new_reader("U07N2S0124.csv")
+    for row in csv_handler.file_reader:
+        if row['id'] == "MO_BS_Intangibles":
+            target_date = datetime.strptime('2015-09-30', '%y-%m-%d')
+            
+            for date_str in row.keys():
+                date = datetime.strptime(date_str, '%y-%m-%d')
+                if date + timedelta(days=90) < target_date and target_date > date:
+                    print(f"\n\nQuestion 3: {row[date_str]}")
+
+    csv_handler.close()
+
 
 
 if __name__ == '__main__':
