@@ -51,6 +51,15 @@ def main():
 
 
     # Question 2
+    csv_handler.open_new_reader('Y1HZ7B0146.csv')
+    for row in csv_handler.file_reader:
+        if row['id'] == "MO_BS_AP":
+            row.pop('id')
+            scale = row['scale']
+            row.pop('scale')
+            
+            value = sum(float(value) * float(scale) for value in row.values())/ len(row)
+            print(f"\n\nQuestion 2: {value}")
 
 
 if __name__ == '__main__':
